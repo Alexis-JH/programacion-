@@ -30,9 +30,9 @@ Uso del kardex:
 6. **Exportar CSV** descarga `movimientos-materiales.csv` (separador `;`, UTF-8 con BOM) para abrirlo en Excel.
 
 ## Publicación
-Repositorio: [PEGAR AQUÍ la URL de mi repositorio de GitHub]
+Repositorio: [https://github.com/Alexis-JH/programacion-]
 
-Sitio GitHub Pages: [PEGAR AQUÍ la URL que GitHub Pages muestra]
+Sitio GitHub Pages: [ https://alexis-jh.github.io/programacion-/]
 
 ## Integración de los fragmentos (S9)
 | Fragmento | Dónde se integró | Adaptación propia |
