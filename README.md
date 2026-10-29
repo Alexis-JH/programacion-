@@ -1,68 +1,60 @@
-# Planificador de Alexis Macalupu — materiales educativos
+# Planificador de Alexis Macalupu con kardex
 
-## Autor y propósito
-Autor: Alexis Jheampiers Macalupu Coronel (curso ET505, Semana 7, trabajo individual).
-Sistema: Planificador de Alexis Macalupu.
-Actividad educativa (ficticia): taller de manualidades para 22 estudiantes de 4.° grado de primaria. El sistema organiza el pedido de un material, calcula su costo en céntimos enteros y comprueba que no supere el presupuesto. Todos los datos son ficticios.
+## Propósito
+Autor: Alexis Jheampiers Macalupu Coronel (curso ET505, Semana 9, trabajo individual).
 
-## Ejecutar
-Descargue y conserve juntos index.html, styles.css y app.js. Abra index.html en Chrome o Edge. Edite app.js, guarde y recargue. No necesita instalar paquetes ni conectarse a internet.
+Mejora del Planificador de materiales de la semana 7. El planificador original calcula el costo de un pedido en céntimos enteros y comprueba que no supere el presupuesto de S/ 220.00 (taller de manualidades ficticio para 22 estudiantes de 4.° grado, S/ 10 por estudiante). En la semana 9 se añade un **kardex** de existencias físicas: materiales con código estable, búsqueda, cambio de nombre por código, entradas y salidas, historial, persistencia en el navegador y exportación a CSV.
 
-## Responsabilidades
-- index.html: estructura y entradas.
-- styles.css: apariencia.
-- app.js: objeto limites, cálculo y validación sin acceso a pantalla; luego lectura y acciones de interfaz.
+El presupuesto (dinero, en céntimos) y la existencia (unidades físicas) son datos distintos y no se mezclan. Todos los datos son ficticios.
 
-## Pendientes obligatorios (completados)
-- TODO 1: calcularTotal(pedido) devuelve pedido.cantidad * Math.round(pedido.precio * 100), es decir, cantidad por precio convertido a céntimos enteros.
-- TODO 2: validarPedido(pedido) devuelve "El total supera el presupuesto." si total > limites.presupuestoCentimos; si cumple devuelve "" (cadena vacía). No lee ni modifica la pantalla.
-- TODO 3: el botón Comprobar pedido llama a const error = validarPedido(pedido); Confirmar simulación usa la misma función, por lo que ambos botones comparten una sola validación.
+## Archivos
+- `index.html`: estructura de la página. Contiene el planificador (S7) y, debajo, la sección del kardex (`<section id="kardex">`, ids `k-*`). Enlaza `styles.css`, `app.js` y `kardex.js`.
+- `styles.css`: apariencia. Conserva las reglas de S7 y añade al final la personalización de S9 (color verde, tamaño de la etiqueta del kardex, tabla y selector).
+- `app.js`: lógica del planificador de S7 (`calcularTotal`, `validarPedido`, mensajes). No se modificó en S9.
+- `kardex.js`: lógica nueva del kardex. Reglas sin acceso a pantalla (`saldoDe`, `agregarMovimiento`, `siguienteCodigo`, `exportarCSV`) y, después, la interfaz con `localStorage`.
+- `README.md`: este documento.
 
-## Mi personalización
-- Nombre del sistema: "Planificador de Alexis Macalupu" (en <title> y <h1> de index.html).
-- Actividad: taller de manualidades para 22 estudiantes de 4.° grado. Material de ejemplo: cartulinas (placeholder "Ejemplo: cartulinas").
-- Presupuesto propio: S/ 220.00, es decir limites.presupuestoCentimos:22000. Es distinto de S/150, está entre S/50 y S/300 y es múltiplo de S/10. Justificación: se asignan S/10 por estudiante y son 22 estudiantes (22 x 10 = 220).
-- El texto visible de index.html dice S/ 220.00 y coincide con app.js. Se mantienen maxCantidad:30 y maxPrecio:50.
+El orden de carga en `index.html` es `app.js` y luego `kardex.js`. No comparten variables: `kardex.js` solo depende de los ids `k-*` de su propia sección.
 
-## Pruebas
-Se ejecutaron cinco pruebas en el navegador, con ambos botones (Comprobar pedido y Confirmar simulación); los resultados y capturas están en el informe PDF:
-1. Válido: Cartulinas, 10 unidades a S/5.00 → total S/ 50.00, saldo S/ 170.00.
-2. Inválido: material vacío, y cantidad 2.5 → error rojo; no se confirma.
-3. Límite: 10 unidades a S/22.00 (presupuesto/10) → total S/ 220.00, saldo S/ 0.00; se acepta.
-4. Exceso: 10 unidades a S/22.01 → total S/ 220.10, exceso S/ 0.10; error rojo.
-5. Se confirma un pedido válido, se intenta uno inválido y la ficha válida se conserva; luego Limpiar la elimina.
+## Ejecutar y usar
+**Local:** conserve juntos los cinco archivos y abra `index.html` en Chrome o Edge. No requiere instalar nada ni internet.
 
-## Mi aporte y ayuda recibida
-Modificaciones: completé los tres TODO en app.js, cambié limites.presupuestoCentimos a 22000, y personalicé index.html (título, encabezado, descripción de la actividad, presupuesto visible y ejemplo de material). Conservé mostrarMensaje y mostrarError sin cambios.
-Error detectado y corregido: tras el TODO 1 y antes del TODO 2 la validación seguía devolviendo el aviso de pendiente; se resolvió con el TODO 2. Para el exceso se usa 22.01 (no 0.01), como indica la guía.
-Ayuda recibida: utilicé el asistente de IA Claude (Anthropic) para aplicar los cambios de la guía paso a paso, proponer la personalización, ejecutar las pruebas en un navegador automatizado y armar el borrador del informe. También consulté las guías de MAXEDRA (cambios exactos y GitHub). Soy responsable de entender y explicar cada parte en la exposición individual.
+**Publicado:** abra el enlace de GitHub Pages indicado abajo.
 
-## Repositorio individual y GitHub Pages
-Cada alumno crea su propio repositorio. En la web de GitHub use New repository y después Add file > Upload files para subir estos cuatro archivos en la raíz; no suba el ZIP sin extraer. Guarde los cambios con Commit changes.
-Para publicar: Settings > Pages > Deploy from a branch > main > /(root) > Save. GitHub Free permite Pages con repositorios públicos. Espere la publicación y abra la URL que GitHub muestre; compruebe ambos botones y actualice al subir cambios. Si aparece 404, compruebe index.html en la raíz y la rama seleccionada.
-No suba contraseñas, datos reales de alumnos ni informes personales. El informe se entrega en MAXEDRA. GitHub Pages es opcional esta semana. Ejecute su copia local y conserve los archivos originales para sustentar. En MAXEDRA entregue únicamente un PDF; no adjunte código, ZIP, Word ni imágenes por separado.
+Uso del kardex:
+1. Escriba el nombre de un material ficticio y pulse **Crear material**. Recibe un código estable (`MAT-001`, `MAT-002`, ...).
+2. Use **Buscar por nombre o código** para filtrar y elija el material en la lista. Si la búsqueda no tiene coincidencias, no hay material seleccionado y no se actúa sobre la selección anterior.
+3. Elija **ENTRADA** o **SALIDA**, escriba una cantidad entera positiva y pulse **Registrar movimiento**. Existencia = entradas − salidas. Una salida mayor a la existencia se rechaza sin guardar nada.
+4. **Cambiar nombre** modifica el material por su código; el historial y los demás materiales no cambian.
+5. **Eliminar sin movimientos o inactivar**: si el material no tiene movimientos se elimina previa confirmación (se puede cancelar); si tiene movimientos se inactiva y su historial se conserva.
+6. **Exportar CSV** descarga `movimientos-materiales.csv` (separador `;`, UTF-8 con BOM) para abrirlo en Excel.
 
-Repositorio: (pendiente: pegar aquí el enlace de mi repositorio cuando lo cree)
-Sitio: (pendiente: pegar aquí el enlace que GitHub Pages muestre, si lo publico)
+## Publicación
+Repositorio: [PEGAR AQUÍ la URL de mi repositorio de GitHub]
 
-Fuente: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+Sitio GitHub Pages: [PEGAR AQUÍ la URL que GitHub Pages muestra]
 
-## Entrega y evaluación
+## Integración de los fragmentos (S9)
+| Fragmento | Dónde se integró | Adaptación propia |
+|---|---|---|
+| `kardex.html` | `index.html`, después de la sección «Preparar un pedido» y fuera de su formulario (sin formularios anidados) | `novalidate` en sus dos formularios para mostrar los mensajes propios; etiqueta «Nombre del material ficticio» |
+| `kardex.js` | Archivo nuevo, enlazado con `<script src="kardex.js">` después de `app.js` | Código legible `MAT-001` como id estable (función `siguienteCodigo`) en lugar de un UUID largo; corregido el texto «Use al menos 3 caracteres.» |
+| `personalizacion.css` | Final de `styles.css` | El selector `#conv-form` (otro proyecto) se cambió por `#formulario`, el formulario del planificador; se añadieron reglas para el `select` y el mensaje del kardex |
 
-Trabajo individual. El único PDF reúne explicación, personalización, capturas del código y del sistema, cinco pruebas y aportes documentados en README. Plazo: 17/10/2026 a las 20:00, Perú. Durante la práctica cada estudiante sube su plantilla a su propio GitHub; esto no reemplaza el PDF.
+Además se reemplazó el texto de S7 «Su reto de programación / avisos de pendiente» por «Cómo usar el planificador», porque los tres TODO ya estaban completados.
 
-Rúbrica: organización y reutilización 5; personalización funcional 5; pruebas e informe coherente 5; exposición individual del trabajo 5. Las consultas del taller resuelven dudas y no sustituyen la exposición del cuarto criterio.
+## Personalización
+- Etiqueta HTML: «Nombre del material ficticio» (`label.etiqueta-kardex`).
+- Tamaño CSS de esa etiqueta: `font-size: 1.25rem`, en negrita.
+- Paleta RGB: verde `rgb(22,101,52)` para botones y etiqueta, sobre texto blanco (contraste alto).
 
-## Evolución propuesta
-Semana 7: cálculo, validación y organización. Semana 8: crear y listar registros. Semana 9: buscar, modificar y eliminar. Semana 10: integración y comprobación individual. Las ampliaciones requieren las consignas de esas semanas; no se exigen en esta entrega.
+## Aportes y ayuda recibida
+- Aporte propio: proyecto S7 (cálculo, validación, presupuesto de S/ 220.00) y elección de la personalización.
+- Fragmentos suministrados por la asignatura: `kardex.html`, `kardex.js`, `personalizacion.css`.
+- Ayuda de IA: asistente Claude (Anthropic), 28/10/2026, para integrar los fragmentos, proponer las adaptaciones indicadas arriba, ejecutar las pruebas en un navegador automatizado y preparar el borrador del informe. El detalle de consultas, errores corregidos y pruebas está en el PDF entregado en MAXEDRA (el PDF no se publica aquí).
 
-
-## Mensajes visibles y pruebas de error
-
-Esta versión muestra errores en rojo y resultados válidos en verde. Comprobar indica «Pedido no válido»; Confirmar indica «No se pudo confirmar». Si ya había un pedido válido, lo conserva y lo aclara. Los tres TODO siguen pendientes para el estudiante; los avisos de pendiente no son pruebas aprobadas. Complete esos cambios siguiendo la guía.
-
-Busque las marcas TODO 1, TODO 2 y TODO 3; las líneas indicadas en la guía son orientativas. Mantenga las funciones mostrarMensaje y mostrarError, que ya están preparadas. Después de cambiar const error=null, conserve las líneas que siguen aunque difieran de la versión anterior de la guía.
-
-Ejemplo con presupuesto S/150: 10 unidades a S/15.00 se aceptan. Para probar exceso, escriba S/15.01 como precio unitario: total S/150.10, exceso S/0.10. No reemplace el precio por S/0.01. Con otro presupuesto, use 10 unidades a presupuesto/10 y después aumente ese precio en S/0.01. Pruebe ambos botones.
-
-Si ya avanzó, conserve su carpeta anterior y trabaje con una copia. Traslade sus tres cambios y su personalización a esta versión; no sobrescriba su trabajo sin conservarlo. La modalidad, la rúbrica y la entrega de un PDF siguen vigentes.
+## Límites
+- Los datos se guardan en `localStorage`: solo existen en este navegador y en este origen. No hay base de datos compartida ni varios usuarios.
+- El CSV es una copia de los movimientos en el momento de exportar; no se sincroniza con Excel.
+- Si el navegador bloquea el almacenamiento, el kardex avisa y no sobrescribe datos.
+- Los datos son ficticios; no se guardan datos personales ni claves.

@@ -1,7 +1,33 @@
-<!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Planificador de Alexis Macalupu</title>
-<link rel="stylesheet" href="styles.css"></head>
-<body><main><small>ET505 · Semana 7 · Trabajo individual</small><h1>Planificador de Alexis Macalupu</h1><p>Organice el pedido de materiales para el taller de manualidades de 22 estudiantes de 4.° grado de primaria, con un presupuesto de S/ 220.00 (S/ 10 por estudiante). Simulación sin compras ni envíos.</p>
-<section><h2>Su reto de programación</h2><ol><li>TODO 1: calcular el total en céntimos.</li><li>TODO 2: rechazar el pedido que supera el presupuesto.</li><li>TODO 3: reutilizar la validación al comprobar.</li></ol><p>Los avisos de pendiente son intencionales. Abra app.js en su editor, busque TODO, edite, guarde y recargue index.html en el navegador. Conserve la copia inicial.</p></section>
-<section><h2>Preparar un pedido</h2><form id="formulario" novalidate><label for="material">Material educativo</label><input id="material" maxlength="60" placeholder="Ejemplo: cartulinas" autocomplete="off"><div class="grid"><div><label for="cantidad">Cantidad de unidades</label><input id="cantidad" type="number" min="1" max="30" step="1"></div><div><label for="precio">Precio por unidad en soles</label><input id="precio" type="number" min="0.01" max="50" step="0.01"></div></div><button id="comprobar" type="button">Comprobar pedido</button><button type="submit">Confirmar simulación</button><p id="mensaje" role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p></form><h2>Último pedido válido</h2><p id="vacio">Todavía no ha confirmado un pedido.</p><div id="ficha" hidden></div><button id="limpiar" type="button">Limpiar</button></section><small>Use datos ficticios. La información sólo permanece en esta pestaña y se pierde al recargar.</small></main>
-<script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Planificador de Alexis Macalupu</title>
+<link rel="stylesheet" href="styles.css"></head>
+<body><main><small>ET505 · Semana 9 · Trabajo individual</small><h1>Planificador de Alexis Macalupu</h1><p>Organice el pedido de materiales para el taller de manualidades de 22 estudiantes de 4.° grado de primaria, con un presupuesto de S/ 220.00 (S/ 10 por estudiante). Simulación sin compras ni envíos. Incluye un kardex de existencias físicas, independiente del presupuesto.</p>
+<section><h2>Cómo usar el planificador</h2><ol><li>Preparar un pedido: el total se calcula en céntimos y se rechaza si supera el presupuesto.</li><li>Kardex: crear materiales, registrar entradas y salidas, y consultar la existencia física.</li><li>El presupuesto en soles y la existencia en unidades son datos distintos.</li></ol></section>
+<section><h2>Preparar un pedido</h2><form id="formulario" novalidate><label for="material">Material educativo</label><input id="material" maxlength="60" placeholder="Ejemplo: cartulinas" autocomplete="off"><div class="grid"><div><label for="cantidad">Cantidad de unidades</label><input id="cantidad" type="number" min="1" max="30" step="1"></div><div><label for="precio">Precio por unidad en soles</label><input id="precio" type="number" min="0.01" max="50" step="0.01"></div></div><button id="comprobar" type="button">Comprobar pedido</button><button type="submit">Confirmar simulación</button><p id="mensaje" role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p></form><h2>Último pedido válido</h2><p id="vacio">Todavía no ha confirmado un pedido.</p><div id="ficha" hidden></div><button id="limpiar" type="button">Limpiar</button></section>
+<section id="kardex" aria-labelledby="k-titulo">
+ <h2 id="k-titulo">Kardex de materiales ficticios</h2>
+ <p>Las existencias físicas son independientes del presupuesto del pedido.</p>
+ <form id="k-material-form" novalidate>
+  <label class="etiqueta-kardex" for="k-nombre">Nombre del material ficticio</label>
+  <input id="k-nombre" maxlength="60" required>
+  <button>Crear material</button>
+ </form>
+ <label for="k-buscar">Buscar por nombre o código</label><input id="k-buscar">
+ <label for="k-material">Material seleccionado</label><select id="k-material"></select>
+ <p>Existencia: <strong id="k-saldo">0</strong></p>
+ <button id="k-renombrar" type="button">Cambiar nombre</button>
+ <button id="k-retirar" type="button">Eliminar sin movimientos o inactivar</button>
+ <form id="k-mov-form" novalidate>
+  <label for="k-tipo">Movimiento</label>
+  <select id="k-tipo"><option>ENTRADA</option><option>SALIDA</option></select>
+  <label for="k-cantidad">Cantidad entera positiva</label><input id="k-cantidad" type="number" min="1" step="1" required>
+  <button>Registrar movimiento</button>
+ </form>
+ <button id="k-exportar" type="button">Exportar CSV</button>
+ <p id="k-mensaje" role="status" aria-live="polite"></p>
+ <div class="tabla-scroll"><table><thead><tr><th>Fecha</th><th>Material</th><th>Tipo</th><th>Cantidad</th></tr></thead><tbody id="k-filas"></tbody></table></div>
+ <p>Datos guardados sólo en este navegador y origen. CSV es una copia, no sincronización con Excel.</p>
+</section>
+<small>Use datos ficticios. La información sólo permanece en esta pestaña y se pierde al recargar.</small></main>
+<script src="app.js"></script>
+<script src="kardex.js"></script></body></html>
